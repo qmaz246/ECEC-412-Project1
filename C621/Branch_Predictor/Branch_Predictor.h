@@ -10,8 +10,9 @@
 #include "Instruction.h"
 
 // Predictor type
-#define TWO_BIT_LOCAL
+// #define TWO_BIT_LOCAL
 //#define TOURNAMENT
+ #define G_SHARE
 
 // saturating counter
 typedef struct Sat_Counter
@@ -50,6 +51,14 @@ typedef struct Branch_Predictor
     uint64_t global_history;
     unsigned history_register_mask;
     #endif
+
+    #ifdef G_SHARE
+    unsigned global_predictor_size;
+    unsigned global_history_mask;
+    Sat_Counter *global_counters;
+    uint64_t global_history;
+    #endif  
+
 }Branch_Predictor;
 
 // Initialization function
