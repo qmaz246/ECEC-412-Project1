@@ -5,10 +5,10 @@ const unsigned instShiftAmt = 2; // Number of bits to shift a PC by
 // You can play around with these settings.
 const unsigned localPredictorSize = 2048;
 const unsigned localCounterBits = 2;
-const unsigned localHistoryTableSize = 16384; 
-const unsigned globalPredictorSize = 2048;
+const unsigned localHistoryTableSize = 65536; 
+const unsigned globalPredictorSize = 65536;
 const unsigned globalCounterBits = 2;
-const unsigned choicePredictorSize = 16384; // Keep this the same as globalPredictorSize.
+const unsigned choicePredictorSize = 65536; // Keep this the same as globalPredictorSize.
 const unsigned choiceCounterBits = 2;
 
 Branch_Predictor *initBranchPredictor()
@@ -250,8 +250,10 @@ bool predict(Branch_Predictor *branch_predictor, Instruction *instr)
     unsigned global_predictor_idx = 
         (branch_predictor->global_history & branch_predictor->global_history_mask) ^ (branch_address & branch_predictor->global_history_mask);
 
-    bool prediction_correct = 
+    bool global_prediction = 
         getPrediction(&(branch_predictor->global_counters[global_predictor_idx]));
+
+    bool prediction_correct = global_prediction == instr->taken;
 
     // Step two, update counters
     if (instr->taken)
