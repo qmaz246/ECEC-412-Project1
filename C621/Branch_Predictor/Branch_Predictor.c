@@ -3,12 +3,12 @@
 const unsigned instShiftAmt = 2; // Number of bits to shift a PC by
 
 // You can play around with these settings.
-const unsigned localPredictorSize = 2048;
+const unsigned localPredictorSize = 131072;
 const unsigned localCounterBits = 2;
-const unsigned localHistoryTableSize = 65536; 
-const unsigned globalPredictorSize = 65536;
+const unsigned localHistoryTableSize = 131072; 
+const unsigned globalPredictorSize = 131072;
 const unsigned globalCounterBits = 2;
-const unsigned choicePredictorSize = 65536; // Keep this the same as globalPredictorSize.
+const unsigned choicePredictorSize = 131072; // Keep this the same as globalPredictorSize.
 const unsigned choiceCounterBits = 2;
 
 Branch_Predictor *initBranchPredictor()
